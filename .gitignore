@@ -1,0 +1,23 @@
+# dependencies
+node_modules/
+
+# Remix / Vite build output
+/build
+/public/build
+.cache
+
+# Prisma local dev database (if you ever switch back to sqlite locally)
+*.sqlite
+*.sqlite-journal
+
+# env files — never commit real secrets
+.env
+.env.*
+!.env.example
+
+# Vercel
+.vercel
+
+# OS / editor
+.DS_Store
+*.log
