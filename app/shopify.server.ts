@@ -17,11 +17,48 @@ const appUrl =
     : "");
 
 const scopes = [
+  // Orders & Draft Orders
   "write_orders",
+  "read_orders",
   "write_draft_orders",
+  "read_draft_orders",
+  // Products & Listings
   "read_products",
+  "read_product_listings",
+  // Customers
+  "write_customers",
+  "read_customers",
+  // Discounts & Price Rules
   "write_discounts",
+  "read_discounts",
+  "write_price_rules",
+  "read_price_rules",
+  // Inventory
+  "read_inventory",
+  "write_inventory",
+  // Script Tags (for storefront JS injection)
+  "read_script_tags",
+  "write_script_tags",
+  // Fulfillments
+  "read_fulfillments",
+  "write_fulfillments",
+  // Shipping zones (for address validation)
+  "read_shipping",
+  // Analytics & Marketing
+  "read_analytics",
+  "write_marketing_events",
+  "read_marketing_events",
+  // Metafields (per-product/variant settings)
+  "write_metafields",
+  "read_metafields",
+  // Payment & Billing
+  "read_payment_mandate",
+  // Themes & Assets
   "read_themes",
+  "write_themes",
+  // Publications & Reports
+  "read_publications",
+  "read_reports",
 ];
 
 const shopify = shopifyApp({
@@ -70,6 +107,30 @@ const shopify = shopifyApp({
     ORDERS_CREATE: {
       deliveryMethod: DeliveryMethod.Http,
       callbackUrl: "/webhooks/orders/create",
+    },
+    ORDERS_UPDATED: {
+      deliveryMethod: DeliveryMethod.Http,
+      callbackUrl: "/webhooks/orders/updated",
+    },
+    ORDERS_FULFILLED: {
+      deliveryMethod: DeliveryMethod.Http,
+      callbackUrl: "/webhooks/orders/fulfilled",
+    },
+    ORDERS_CANCELLED: {
+      deliveryMethod: DeliveryMethod.Http,
+      callbackUrl: "/webhooks/orders/cancelled",
+    },
+    DRAFT_ORDERS_CREATE: {
+      deliveryMethod: DeliveryMethod.Http,
+      callbackUrl: "/webhooks/draft_orders/create",
+    },
+    CUSTOMERS_CREATE: {
+      deliveryMethod: DeliveryMethod.Http,
+      callbackUrl: "/webhooks/customers/create",
+    },
+    SHOP_UPDATE: {
+      deliveryMethod: DeliveryMethod.Http,
+      callbackUrl: "/webhooks/shop/update",
     },
   },
   hooks: {

@@ -1,4 +1,3 @@
-import { vercelPreset } from "@vercel/remix/vite";
 import { vitePlugin as remix } from "@remix-run/dev";
 import { defineConfig, type UserConfig } from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";
@@ -6,6 +5,20 @@ import tsconfigPaths from "vite-tsconfig-paths";
 declare module "@remix-run/node" {
   interface Future {
     v3_singleFetch: true;
+  }
+}
+
+// Safely load the Vercel preset only when building on Vercel.
+// This prevents a hard crash when @vercel/remix is not installed
+// (local dev, Render, Railway, Fly.io, etc.).
+function getVercelPresets() {
+  if (!process.env.VERCEL) return [];
+  try {
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    const { vercelPreset } = require("@vercel/remix/vite");
+    return [vercelPreset()];
+  } catch {
+    return [];
   }
 }
 
@@ -18,7 +31,7 @@ export default defineConfig({
   plugins: [
     remix({
       ignoredRouteFiles: ["**/.*"],
-      presets: process.env.VERCEL ? [vercelPreset()] : [],
+      presets: getVercelPresets(),
       future: {
         v3_fetcherPersist: true,
         v3_relativeSplatPath: true,
@@ -33,5 +46,6 @@ export default defineConfig({
     assetsInlineLimit: 0,
   },
 }) satisfies UserConfig;
+
 
 

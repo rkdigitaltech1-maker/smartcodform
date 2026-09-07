@@ -14,12 +14,22 @@ automatically_update_urls_on_dev = true
 dev_store_url = "fab-gadget-5ssd1kdj.myshopify.com"
 
 [access_scopes]
-# Scopes needed:
-# - write_orders / read_orders: create COD draft orders
-# - write_draft_orders / read_draft_orders: build & convert draft orders
-# - read_products / read_product_listings: show product data on the form
-# - write_discounts: apply quantity-offer / bundle discounts
-scopes = "write_orders,write_draft_orders,read_products,write_discounts,read_themes"
+# Full set of required scopes for Smart COD Form & Upsells app:
+# Orders & Draft Orders: create, read, manage COD orders
+# Products & Variants: show product/variant data on the COD form
+# Customers: create/update customers, read customer data
+# Discounts & Price Rules: apply quantity offers, bundle discounts, automatic discounts
+# Inventory: read stock levels to warn when items are out of stock
+# Script Tags: inject the COD form JavaScript into storefronts automatically
+# Fulfillments: update order fulfillment status (out for delivery, delivered, returned)
+# Shipping: read shipping zones for address validation
+# Analytics: read store analytics data
+# Marketing: track COD form events for ad pixels
+# Metafields: store per-product/variant form settings
+# Payment Terms: set Cash on Delivery payment terms
+# Themes & Assets: read theme structure for extension placement
+# Webhooks: required internally - registered at install
+scopes = "write_orders,read_orders,write_draft_orders,read_draft_orders,read_products,read_product_listings,write_customers,read_customers,write_discounts,read_discounts,write_price_rules,read_price_rules,read_inventory,write_inventory,read_script_tags,write_script_tags,read_fulfillments,write_fulfillments,read_shipping,read_analytics,write_marketing_events,read_marketing_events,write_metafields,read_metafields,read_payment_mandate,read_themes,write_themes,read_publications,read_reports"
 
 [auth]
 redirect_urls = [
@@ -43,6 +53,30 @@ api_version = "2024-10"
   [[webhooks.subscriptions]]
   topics = [ "orders/create" ]
   uri = "/webhooks/orders/create"
+
+  [[webhooks.subscriptions]]
+  topics = [ "orders/updated" ]
+  uri = "/webhooks/orders/updated"
+
+  [[webhooks.subscriptions]]
+  topics = [ "orders/fulfilled" ]
+  uri = "/webhooks/orders/fulfilled"
+
+  [[webhooks.subscriptions]]
+  topics = [ "orders/cancelled" ]
+  uri = "/webhooks/orders/cancelled"
+
+  [[webhooks.subscriptions]]
+  topics = [ "draft_orders/create" ]
+  uri = "/webhooks/draft_orders/create"
+
+  [[webhooks.subscriptions]]
+  topics = [ "customers/create" ]
+  uri = "/webhooks/customers/create"
+
+  [[webhooks.subscriptions]]
+  topics = [ "shop/update" ]
+  uri = "/webhooks/shop/update"
 
 [pos]
 embedded = false
