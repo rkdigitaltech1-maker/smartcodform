@@ -16,7 +16,7 @@ const appUrl =
     ? `https://${process.env.VERCEL_URL}`
     : "");
 
-const DEFAULT_SCOPES = [
+const VALID_SCOPES = [
   "write_orders",
   "write_draft_orders",
   "read_products",
@@ -24,9 +24,14 @@ const DEFAULT_SCOPES = [
   "read_themes",
 ];
 
-const scopes = process.env.SCOPES
-  ? process.env.SCOPES.split(",").map((s) => s.trim()).filter(Boolean)
-  : DEFAULT_SCOPES;
+const requestedScopes = process.env.SCOPES
+  ? process.env.SCOPES.split(",")
+      .map((s) => s.trim())
+      .filter((s) => VALID_SCOPES.includes(s))
+  : VALID_SCOPES;
+
+const scopes = requestedScopes.length > 0 ? requestedScopes : VALID_SCOPES;
+
 
 const shopify = shopifyApp({
   apiKey: process.env.SHOPIFY_API_KEY,
