@@ -19,7 +19,7 @@ dev_store_url = "fab-gadget-5ssd1kdj.myshopify.com"
 # - write_draft_orders / read_draft_orders: build & convert draft orders
 # - read_products / read_product_listings: show product data on the form
 # - write_discounts: apply quantity-offer / bundle discounts
-scopes = "read_orders,write_orders,read_draft_orders,write_draft_orders,read_products,write_discounts,read_customers,write_customers,read_themes"
+scopes = "write_orders,write_draft_orders,read_products,write_discounts,read_themes"
 
 [auth]
 redirect_urls = [

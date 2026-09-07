@@ -16,13 +16,26 @@ const appUrl =
     ? `https://${process.env.VERCEL_URL}`
     : "");
 
+const DEFAULT_SCOPES = [
+  "write_orders",
+  "write_draft_orders",
+  "read_products",
+  "write_discounts",
+  "read_themes",
+];
+
+const scopes = process.env.SCOPES
+  ? process.env.SCOPES.split(",").map((s) => s.trim()).filter(Boolean)
+  : DEFAULT_SCOPES;
+
 const shopify = shopifyApp({
   apiKey: process.env.SHOPIFY_API_KEY,
   apiSecretKey: process.env.SHOPIFY_API_SECRET || "",
   apiVersion: ApiVersion.October24,
-  scopes: process.env.SCOPES?.split(","),
+  scopes,
   appUrl,
   authPathPrefix: "/auth",
+
   sessionStorage: new PrismaSessionStorage(prisma),
   distribution: AppDistribution.AppStore,
 
