@@ -47,6 +47,24 @@ const FAQS = [
 export default function Landing() {
   const { appStoreUrl } = useLoaderData<typeof loader>();
 
+  const handleInstallClick = (e: React.MouseEvent) => {
+    if (appStoreUrl && appStoreUrl !== "#") {
+      return; // Navigate to Shopify App Store listing
+    }
+    e.preventDefault();
+    const domain = prompt(
+      "Enter your Shopify store domain to install Smart COD:\n(e.g. fab-gadget-5ssd1kdj.myshopify.com)",
+      "fab-gadget-5ssd1kdj.myshopify.com"
+    );
+    if (domain) {
+      let cleanDomain = domain.trim().replace(/^https?:\/\//, "").replace(/\/$/, "");
+      if (!cleanDomain.includes(".")) {
+        cleanDomain += ".myshopify.com";
+      }
+      window.location.href = `/app?shop=${encodeURIComponent(cleanDomain)}`;
+    }
+  };
+
   return (
     <div className="sc-landing">
       <div className="sc-container">
@@ -60,7 +78,7 @@ export default function Landing() {
             <a href="#pricing">Pricing</a>
             <a href="#faq">FAQ</a>
           </div>
-          <a className="sc-btn sc-btn-primary" href={appStoreUrl}>
+          <a className="sc-btn sc-btn-primary" href={appStoreUrl} onClick={handleInstallClick}>
             Install on Shopify
           </a>
         </nav>
@@ -74,7 +92,7 @@ export default function Landing() {
             checkout changes required.
           </p>
           <div className="sc-hero-ctas">
-            <a className="sc-btn sc-btn-primary" href={appStoreUrl}>
+            <a className="sc-btn sc-btn-primary" href={appStoreUrl} onClick={handleInstallClick}>
               Install Free
             </a>
             <a className="sc-btn sc-btn-secondary" href="#pricing">
@@ -121,7 +139,7 @@ export default function Landing() {
                 <ul className="sc-plan-features">
                   {p.features.map((f) => <li key={f}>{f}</li>)}
                 </ul>
-                <a className={`sc-btn ${p.highlight ? "sc-btn-primary" : "sc-btn-secondary"}`} href={appStoreUrl} style={{ marginTop: "auto" }}>
+                <a className={`sc-btn ${p.highlight ? "sc-btn-primary" : "sc-btn-secondary"}`} href={appStoreUrl} onClick={handleInstallClick} style={{ marginTop: "auto" }}>
                   Choose {p.name}
                 </a>
               </div>
@@ -146,7 +164,7 @@ export default function Landing() {
         <div className="sc-cta-band">
           <h2>Ready to capture more COD orders?</h2>
           <p>Install Smart COD and have your form live in under 5 minutes.</p>
-          <a className="sc-btn sc-btn-primary" href={appStoreUrl}>
+          <a className="sc-btn sc-btn-primary" href={appStoreUrl} onClick={handleInstallClick}>
             Install on Shopify
           </a>
         </div>
@@ -159,3 +177,4 @@ export default function Landing() {
     </div>
   );
 }
+
