@@ -21,8 +21,6 @@ const scopes = [
   "write_draft_orders",
   "read_products",
   "write_discounts",
-  "read_customers",
-  "write_customers",
   "read_themes",
 ];
 
