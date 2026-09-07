@@ -18,10 +18,6 @@ const appUrl =
 
 const scopes = [
   "write_products",
-  "write_orders",
-  "write_draft_orders",
-  "write_discounts",
-  "read_themes",
 ];
 
 const shopify = shopifyApp({
