@@ -17,9 +17,9 @@ const appUrl =
     : "");
 
 const scopes = [
+  "write_products",
   "write_orders",
   "write_draft_orders",
-  "read_products",
   "write_discounts",
   "read_themes",
 ];
