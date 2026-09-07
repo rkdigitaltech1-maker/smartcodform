@@ -18,9 +18,6 @@ export default defineConfig({
   plugins: [
     remix({
       ignoredRouteFiles: ["**/.*"],
-      // Only apply the Vercel serverless preset when actually building on
-      // Vercel (it sets the VERCEL env var). Locally / on other hosts this
-      // stays a normal Remix app using @remix-run/serve.
       presets: process.env.VERCEL ? [vercelPreset()] : [],
       future: {
         v3_fetcherPersist: true,
@@ -36,3 +33,5 @@ export default defineConfig({
     assetsInlineLimit: 0,
   },
 }) satisfies UserConfig;
+
+
