@@ -16,22 +16,13 @@ const appUrl =
     ? `https://${process.env.VERCEL_URL}`
     : "");
 
-const VALID_SCOPES = [
+const scopes = [
   "write_orders",
   "write_draft_orders",
   "read_products",
   "write_discounts",
   "read_themes",
 ];
-
-const requestedScopes = process.env.SCOPES
-  ? process.env.SCOPES.split(",")
-      .map((s) => s.trim())
-      .filter((s) => VALID_SCOPES.includes(s))
-  : VALID_SCOPES;
-
-const scopes = requestedScopes.length > 0 ? requestedScopes : VALID_SCOPES;
-
 
 const shopify = shopifyApp({
   apiKey: process.env.SHOPIFY_API_KEY,
@@ -40,6 +31,7 @@ const shopify = shopifyApp({
   scopes,
   appUrl,
   authPathPrefix: "/auth",
+
 
   sessionStorage: new PrismaSessionStorage(prisma),
   distribution: AppDistribution.AppStore,
