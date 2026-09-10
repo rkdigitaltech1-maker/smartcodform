@@ -17,22 +17,15 @@ const appUrl =
     : "");
 
 const defaultScopes = [
-  "write_products",
-  "read_products",
   "write_orders",
   "read_orders",
   "write_draft_orders",
   "read_draft_orders",
+  "read_products",
   "write_customers",
   "read_customers",
   "write_discounts",
   "read_discounts",
-  "write_inventory",
-  "read_inventory",
-  "write_script_tags",
-  "read_script_tags",
-  "write_fulfillments",
-  "read_fulfillments",
   "write_themes",
   "read_themes",
 ];
