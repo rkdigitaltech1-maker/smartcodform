@@ -16,50 +16,34 @@ const appUrl =
     ? `https://${process.env.VERCEL_URL}`
     : "");
 
-const scopes = [
-  // Orders & Draft Orders
+const defaultScopes = [
   "write_orders",
   "read_orders",
   "write_draft_orders",
   "read_draft_orders",
-  // Products & Listings
   "read_products",
   "read_product_listings",
-  // Customers
   "write_customers",
   "read_customers",
-  // Discounts & Price Rules
   "write_discounts",
   "read_discounts",
   "write_price_rules",
   "read_price_rules",
-  // Inventory
   "read_inventory",
   "write_inventory",
-  // Script Tags (for storefront JS injection)
   "read_script_tags",
   "write_script_tags",
-  // Fulfillments
   "read_fulfillments",
   "write_fulfillments",
-  // Shipping zones (for address validation)
   "read_shipping",
-  // Analytics & Marketing
-  "read_analytics",
-  "write_marketing_events",
-  "read_marketing_events",
-  // Metafields (per-product/variant settings)
-  "write_metafields",
-  "read_metafields",
-  // Payment & Billing
-  "read_payment_mandate",
-  // Themes & Assets
   "read_themes",
   "write_themes",
-  // Publications & Reports
   "read_publications",
-  "read_reports",
 ];
+
+const scopes = process.env.SCOPES
+  ? process.env.SCOPES.split(",").map((s) => s.trim()).filter(Boolean)
+  : defaultScopes;
 
 const shopify = shopifyApp({
   apiKey: process.env.SHOPIFY_API_KEY,
