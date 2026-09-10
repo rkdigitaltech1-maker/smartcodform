@@ -17,47 +17,27 @@ const appUrl =
     : "");
 
 const defaultScopes = [
+  "write_products",
+  "read_products",
   "write_orders",
   "read_orders",
   "write_draft_orders",
   "read_draft_orders",
-  "read_products",
-  "read_product_listings",
   "write_customers",
   "read_customers",
   "write_discounts",
   "read_discounts",
-  "write_price_rules",
-  "read_price_rules",
-  "read_inventory",
   "write_inventory",
-  "read_script_tags",
+  "read_inventory",
   "write_script_tags",
-  "read_fulfillments",
+  "read_script_tags",
   "write_fulfillments",
-  "read_shipping",
-  "read_themes",
+  "read_fulfillments",
   "write_themes",
-  "read_publications",
+  "read_themes",
 ];
 
-const VALID_SHOPIFY_SCOPES = new Set([
-  "read_orders", "write_orders",
-  "read_draft_orders", "write_draft_orders",
-  "read_products", "write_products",
-  "read_product_listings",
-  "read_customers", "write_customers",
-  "read_discounts", "write_discounts",
-  "read_price_rules", "write_price_rules",
-  "read_inventory", "write_inventory",
-  "read_script_tags", "write_script_tags",
-  "read_fulfillments", "write_fulfillments",
-  "read_shipping", "write_shipping",
-  "read_themes", "write_themes",
-  "read_publications", "write_publications",
-  "read_content", "write_content",
-  "read_locations"
-]);
+const VALID_SHOPIFY_SCOPES = new Set(defaultScopes);
 
 const rawScopes = process.env.SCOPES
   ? process.env.SCOPES.split(",").map((s) => s.trim()).filter(Boolean)
